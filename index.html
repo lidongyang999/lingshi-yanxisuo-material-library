@@ -1,0 +1,1374 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="领世研习所服务运营物料库，按业务线与运营用途双维度整理。">
+  <title>领世研习所｜服务运营物料库</title>
+  <style>
+    :root {
+      --ink: #202627;
+      --ink-2: #252c2d;
+      --paper: #f4f5f1;
+      --paper-2: #e8ebe5;
+      --white: #ffffff;
+      --muted: #717a77;
+      --line: #dce1da;
+      --orange: #c75b2b;
+      --orange-light: #d8764c;
+      --green: #2b7b5d;
+      --shadow: 0 22px 70px rgba(31, 39, 36, .09);
+      --radius-xl: 30px;
+      --radius-lg: 18px;
+      --radius-md: 13px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    body.modal-open { overflow: hidden; }
+    button, input, a { font: inherit; }
+    button { color: inherit; }
+    button:focus-visible, a:focus-visible, input:focus-visible {
+      outline: 3px solid rgba(213, 118, 76, .7);
+      outline-offset: 3px;
+    }
+    img { max-width: 100%; }
+
+    .hero {
+      min-height: 760px;
+      color: #f5f3eb;
+      background:
+        linear-gradient(115deg, rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 58px 58px,
+        linear-gradient(145deg, #252c2d 0%, #1c2223 65%, #202827 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      width: 58vw;
+      height: 58vw;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 50%;
+      position: absolute;
+      right: -4vw;
+      bottom: -42%;
+      box-shadow:
+        0 0 0 90px rgba(255,255,255,.018),
+        0 0 0 180px rgba(255,255,255,.012);
+    }
+    .hero::after {
+      content: "";
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: rgba(185, 76, 35, .25);
+      filter: blur(85px);
+      position: absolute;
+      top: 9%;
+      right: 9%;
+    }
+    .green-glow {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: rgba(32, 105, 78, .23);
+      filter: blur(80px);
+      position: absolute;
+      left: 10%;
+      bottom: -120px;
+    }
+    .topbar {
+      width: min(1380px, calc(100% - 80px));
+      height: 94px;
+      margin: auto;
+      border-bottom: 1px solid rgba(255,255,255,.14);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+    }
+    .brand {
+      color: inherit;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 13px;
+    }
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px 12px 12px 4px;
+      color: #fff;
+      background: linear-gradient(140deg, #db743f, #b84d23);
+      display: grid;
+      place-items: center;
+      font-family: "STSong", "Songti SC", serif;
+      font-size: 21px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.2);
+      transform: rotate(-2deg);
+    }
+    .brand-copy strong {
+      display: block;
+      letter-spacing: .08em;
+      font-size: 16px;
+    }
+    .brand-copy small {
+      color: rgba(255,255,255,.48);
+      letter-spacing: .13em;
+      font-size: 9px;
+    }
+    .top-links { display: flex; align-items: center; gap: 28px; }
+    .top-links a {
+      color: rgba(255,255,255,.72);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color .2s, transform .2s;
+    }
+    .top-links a:hover { color: #fff; transform: translateY(-2px); }
+    .hero-content {
+      width: min(1380px, calc(100% - 80px));
+      margin: 0 auto;
+      padding: 108px 0 95px;
+      position: relative;
+      z-index: 1;
+    }
+    .eyebrow, .section-kicker {
+      margin: 0;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .eyebrow {
+      color: #d6a58d;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .eyebrow::before { content: ""; width: 30px; height: 1px; background: currentColor; }
+    h1 {
+      max-width: 950px;
+      margin: 28px 0 31px;
+      letter-spacing: -.075em;
+      font-size: clamp(58px, 7vw, 104px);
+      font-weight: 650;
+      line-height: 1.03;
+    }
+    h1 em {
+      color: var(--orange-light);
+      font-family: "STSong", "Songti SC", serif;
+      font-style: normal;
+      font-weight: 400;
+    }
+    .hero-description {
+      margin: 0;
+      color: rgba(255,255,255,.59);
+      font-size: 16px;
+      line-height: 1.9;
+    }
+    .stats {
+      display: flex;
+      margin-top: 62px;
+    }
+    .stat {
+      min-width: 190px;
+      padding: 2px 38px;
+      border-left: 1px solid rgba(255,255,255,.14);
+    }
+    .stat:first-child { border-left: 0; padding-left: 0; }
+    .stat strong {
+      display: block;
+      color: #fff;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 48px;
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1;
+    }
+    .stat span {
+      display: block;
+      margin-top: 8px;
+      color: rgba(255,255,255,.42);
+      font-size: 12px;
+    }
+    .scroll-cue {
+      position: absolute;
+      right: max(40px, calc(50vw - 690px));
+      bottom: 46px;
+      z-index: 2;
+      color: rgba(255,255,255,.42);
+      text-decoration: none;
+      letter-spacing: .16em;
+      font-size: 10px;
+      writing-mode: vertical-rl;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .scroll-cue::after { content: ""; width: 1px; height: 55px; background: rgba(255,255,255,.3); }
+
+    .map-section {
+      width: min(1460px, calc(100% - 64px));
+      margin: auto;
+      padding: 112px 0 122px;
+    }
+    .section-head, .gallery-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 50px;
+    }
+    .section-title-wrap { position: relative; }
+    .section-number {
+      position: absolute;
+      z-index: -1;
+      top: -48px;
+      left: -8px;
+      color: #dfe2dc;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 80px;
+      font-style: italic;
+      line-height: 1;
+    }
+    .section-number.light { z-index: 0; color: rgba(255,255,255,.055); }
+    .section-kicker { color: var(--orange); }
+    h2 {
+      position: relative;
+      margin: 8px 0 0;
+      letter-spacing: -.055em;
+      font-size: clamp(36px, 4vw, 58px);
+      line-height: 1.1;
+    }
+    .section-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .dimension-switch {
+      width: fit-content;
+      margin-bottom: 42px;
+      padding: 5px;
+      border-radius: 999px;
+      background: #e5e8e2;
+      display: flex;
+    }
+    .dimension-switch button {
+      padding: 13px 24px;
+      border: 0;
+      border-radius: 999px;
+      color: #78817e;
+      background: transparent;
+      cursor: pointer;
+      font-weight: 700;
+      transition: color .25s, background .25s, box-shadow .25s, transform .25s;
+    }
+    .dimension-switch button span {
+      margin-right: 8px;
+      color: #9da39f;
+      font-family: Georgia, serif;
+      font-style: italic;
+    }
+    .dimension-switch button.active {
+      color: #fff;
+      background: var(--ink-2);
+      box-shadow: 0 8px 24px rgba(31, 39, 37, .17);
+    }
+    .dimension-switch button.active span { color: #d58a68; }
+    .dimension-switch button:hover { transform: translateY(-1px); }
+    .mind-map {
+      min-height: 510px;
+      padding: 48px;
+      border: 1px solid #dfe3dc;
+      border-radius: var(--radius-xl);
+      background: rgba(255,255,255,.72);
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+      gap: 58px;
+      position: relative;
+    }
+    .mind-map::before {
+      content: "";
+      width: 1px;
+      position: absolute;
+      top: 90px;
+      bottom: 90px;
+      left: 276px;
+      background: #d4dad3;
+    }
+    .root-node {
+      align-self: center;
+      padding: 26px;
+      border: 0;
+      border-radius: 17px;
+      color: #fff;
+      background: #22292a;
+      text-align: left;
+      cursor: pointer;
+      position: sticky;
+      top: 28px;
+      box-shadow: 0 22px 46px rgba(31, 39, 38, .2);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .root-node:hover { transform: translateY(-4px); box-shadow: 0 28px 56px rgba(31, 39, 38, .25); }
+    .root-node::after {
+      content: "";
+      width: 59px;
+      height: 1px;
+      position: absolute;
+      right: -59px;
+      top: 50%;
+      background: #d4dad3;
+    }
+    .root-node .root-label {
+      display: block;
+      margin-bottom: 18px;
+      font-family: "STSong", "Songti SC", serif;
+      font-size: 21px;
+      font-weight: 700;
+    }
+    .root-node strong {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 48px;
+      font-style: italic;
+      font-weight: 400;
+    }
+    .root-node small { margin-left: 7px; color: rgba(255,255,255,.48); }
+    .progress { height: 5px; margin-top: 19px; border-radius: 99px; background: rgba(255,255,255,.12); overflow: hidden; }
+    .progress b { display: block; width: 100%; height: 100%; border-radius: inherit; background: var(--orange-light); }
+    .branch-list { display: grid; gap: 17px; }
+    .branch {
+      --branch: #c75b2b;
+      --soft: #fff0e8;
+      min-height: 78px;
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      align-items: center;
+      gap: 28px;
+      position: relative;
+    }
+    .branch::before {
+      content: "";
+      width: 58px;
+      height: 1px;
+      position: absolute;
+      left: -58px;
+      top: 50%;
+      background: #d4dad3;
+    }
+    .group-node {
+      width: 100%;
+      padding: 18px 20px;
+      border: 0;
+      border-left: 5px solid var(--branch);
+      border-radius: var(--radius-md);
+      background: var(--soft);
+      text-align: left;
+      cursor: pointer;
+      transition: transform .22s, box-shadow .22s;
+    }
+    .group-node:hover, .branch.is-active .group-node {
+      transform: translateX(5px);
+      box-shadow: 0 13px 30px color-mix(in srgb, var(--branch) 17%, transparent);
+    }
+    .group-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+    .group-top > span { font-size: 17px; font-weight: 760; }
+    .group-count { display: inline-flex; align-items: baseline; gap: 5px; }
+    .group-count strong {
+      color: var(--branch);
+      font-family: Georgia, serif;
+      font-size: 28px;
+      font-style: italic;
+      font-weight: 500;
+      line-height: 1;
+    }
+    .group-count small { color: #818a87; font-size: 10px; }
+    .group-note { display: block; margin-top: 8px; color: #7c8582; font-size: 11px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 9px; }
+    .chip {
+      padding: 9px 14px;
+      border: 1px solid color-mix(in srgb, var(--branch) 28%, #fff);
+      border-radius: 999px;
+      color: #626a68;
+      background: #fff;
+      cursor: pointer;
+      font-size: 12px;
+      transition: color .2s, border-color .2s, background .2s, transform .2s;
+    }
+    .chip:hover, .chip.active {
+      color: var(--branch);
+      border-color: var(--branch);
+      background: var(--soft);
+      transform: translateY(-2px);
+    }
+    .chip strong { margin-left: 4px; color: var(--branch); }
+    .map-footnote {
+      margin: 15px 8px 0;
+      color: #8b918e;
+      font-size: 11px;
+      line-height: 1.65;
+    }
+
+    .gallery-section {
+      min-height: 800px;
+      padding: 112px max(32px, calc(50vw - 730px)) 120px;
+      color: #f1f1eb;
+      background: #232a2b;
+    }
+    .gallery-head { margin-bottom: 32px; }
+    .filter-summary { display: flex; align-items: baseline; gap: 8px; color: rgba(255,255,255,.48); }
+    .filter-summary strong {
+      color: var(--orange-light);
+      font-family: Georgia, serif;
+      font-size: 46px;
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1;
+    }
+    .toolbar {
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .active-filters { min-height: 36px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .active-filters > span { color: rgba(255,255,255,.4); font-size: 12px; }
+    .filter-pill, .clear-button {
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 99px;
+      color: #fff;
+      background: rgba(255,255,255,.07);
+      cursor: pointer;
+      font-size: 11px;
+      transition: background .2s, transform .2s;
+    }
+    .filter-pill:hover, .clear-button:hover { background: rgba(255,255,255,.14); transform: translateY(-1px); }
+    .filter-pill::after { content: " ×"; color: rgba(255,255,255,.48); }
+    .search-box {
+      width: min(310px, 40vw);
+      min-width: 220px;
+      padding: 11px 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 99px;
+      color: #fff;
+      background: rgba(255,255,255,.06);
+      outline: none;
+      font-size: 12px;
+      transition: border-color .2s, background .2s;
+    }
+    .search-box::placeholder { color: rgba(255,255,255,.36); }
+    .search-box:focus { border-color: rgba(216,118,76,.75); background: rgba(255,255,255,.09); }
+    .masonry { columns: 5 248px; column-gap: 18px; }
+    .material-card {
+      --delay: 0ms;
+      width: 100%;
+      margin: 0 0 18px;
+      padding: 0;
+      border: 0;
+      border-radius: 14px;
+      color: var(--ink);
+      background: #fff;
+      text-align: left;
+      cursor: zoom-in;
+      break-inside: avoid;
+      overflow: hidden;
+      display: block;
+      animation: card-in .55s both;
+      animation-delay: var(--delay);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .material-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(0,0,0,.25); }
+    .image-wrap { min-height: 120px; background: #e7e9e4; display: block; position: relative; overflow: hidden; }
+    .image-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      background: linear-gradient(transparent 55%, rgba(15,18,18,.52));
+      transition: opacity .3s;
+    }
+    .material-card:hover .image-wrap::after { opacity: 1; }
+    .image-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform .5s cubic-bezier(.2,.7,.2,1);
+    }
+    .material-card:hover .image-wrap img { transform: scale(1.025); }
+    .view-cue {
+      position: absolute;
+      z-index: 1;
+      left: 15px;
+      right: 15px;
+      bottom: 13px;
+      color: #fff;
+      opacity: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      transform: translateY(7px);
+      transition: opacity .3s, transform .3s;
+    }
+    .view-cue b { font-size: 17px; font-weight: 400; }
+    .material-card:hover .view-cue { opacity: 1; transform: none; }
+    .card-body { padding: 15px 16px 17px; display: block; }
+    .card-title { display: block; font-size: 14px; font-weight: 760; line-height: 1.45; }
+    .card-meta {
+      margin-top: 8px;
+      color: #8a918e;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-size: 10px;
+    }
+    .card-meta i { flex: 0 0 auto; width: 6px; height: 6px; border-radius: 50%; background: var(--dot); }
+    .empty-state {
+      padding: 80px 20px;
+      border: 1px dashed rgba(255,255,255,.18);
+      border-radius: 20px;
+      color: rgba(255,255,255,.48);
+      text-align: center;
+    }
+    .empty-state strong { display: block; margin-bottom: 8px; color: #fff; font-size: 20px; }
+    @keyframes card-in {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    footer {
+      padding: 32px max(32px, calc(50vw - 730px));
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: #aeb5b1;
+      background: #1b2021;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      font-size: 12px;
+    }
+    .footer-brand { color: #fff; display: flex; align-items: center; gap: 10px; }
+    .footer-brand .brand-mark { width: 30px; height: 30px; border-radius: 8px 8px 8px 3px; font-size: 14px; }
+    .footer-note { color: #737d79; }
+
+    .modal-backdrop {
+      position: fixed;
+      z-index: 100;
+      inset: 0;
+      padding: 34px 80px;
+      background: rgba(13,16,16,.93);
+      backdrop-filter: blur(13px);
+      display: grid;
+      place-items: center;
+      animation: fade-in .22s both;
+    }
+    .modal-panel {
+      width: min(1180px, 100%);
+      max-height: calc(100vh - 68px);
+      border-radius: 19px;
+      background: #f4f5f0;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      overflow: hidden;
+      box-shadow: 0 32px 95px rgba(0,0,0,.46);
+    }
+    .modal-image {
+      min-height: 430px;
+      background:
+        linear-gradient(45deg, rgba(255,255,255,.02) 25%, transparent 25%) 0 0 / 22px 22px,
+        #171b1c;
+      display: grid;
+      place-items: center;
+      overflow: auto;
+    }
+    .modal-image img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: calc(100vh - 68px);
+      object-fit: contain;
+      display: block;
+    }
+    .modal-info { padding: 38px 30px 28px; display: flex; flex-direction: column; overflow: auto; }
+    .modal-kicker { margin: 0 0 12px; color: var(--orange); letter-spacing: .18em; font-size: 9px; font-weight: 800; }
+    .modal-index { float: right; color: #999f9b; font-family: Georgia, serif; font-style: italic; font-weight: 400; }
+    .modal-info h3 { margin: 0; letter-spacing: -.04em; font-size: 28px; line-height: 1.2; }
+    .filename { margin: 10px 0 0; color: #8b928e; word-break: break-all; font-size: 11px; line-height: 1.5; }
+    .modal-info dl { margin: 32px 0; border-top: 1px solid #d9ddd6; }
+    .modal-info dl div {
+      padding: 14px 0;
+      border-bottom: 1px solid #d9ddd6;
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 12px;
+    }
+    .modal-info dt { color: #979d99; font-size: 11px; }
+    .modal-info dd { margin: 0; font-size: 12px; line-height: 1.55; }
+    .download-button {
+      margin-top: auto;
+      padding: 15px 17px;
+      border-radius: 9px;
+      color: #fff;
+      background: #252c2d;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 750;
+      transition: background .2s, transform .2s;
+    }
+    .download-button:hover { background: var(--orange); transform: translateY(-2px); }
+    .modal-tip { margin-top: 12px; color: #a0a6a2; text-align: center; font-size: 9px; }
+    .modal-close, .modal-arrow {
+      position: fixed;
+      z-index: 101;
+      border: 1px solid rgba(255,255,255,.2);
+      color: #fff;
+      background: rgba(255,255,255,.06);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: border-color .2s, background .2s, transform .2s;
+    }
+    .modal-close {
+      width: 42px;
+      height: 42px;
+      top: 19px;
+      right: 21px;
+      border-radius: 50%;
+      font-size: 23px;
+    }
+    .modal-arrow {
+      width: 44px;
+      height: 62px;
+      top: 50%;
+      border-radius: 99px;
+      font-size: 19px;
+      transform: translateY(-50%);
+    }
+    .modal-arrow.prev { left: 20px; }
+    .modal-arrow.next { right: 20px; }
+    .modal-close:hover, .modal-arrow:hover { border-color: var(--orange); background: var(--orange); }
+    .modal-arrow:hover { transform: translateY(-50%) scale(1.04); }
+    @keyframes fade-in { from { opacity: 0; } }
+
+    .back-top {
+      width: 42px;
+      height: 42px;
+      position: fixed;
+      z-index: 40;
+      right: 24px;
+      bottom: 24px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 50%;
+      color: #fff;
+      background: rgba(31,38,39,.82);
+      backdrop-filter: blur(8px);
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: opacity .25s, transform .25s, background .2s;
+    }
+    .back-top.show { opacity: 1; pointer-events: auto; transform: none; }
+    .back-top:hover { background: var(--orange); }
+
+    @media (max-width: 1080px) {
+      .mind-map { grid-template-columns: 1fr; gap: 27px; }
+      .mind-map::before, .root-node::after, .branch::before { display: none; }
+      .root-node { width: 100%; position: relative; top: auto; }
+      .branch { grid-template-columns: 245px 1fr; }
+      .masonry { columns: 3 220px; }
+      .modal-panel { grid-template-columns: minmax(0,1fr) 290px; }
+    }
+    @media (max-width: 720px) {
+      .hero { min-height: 700px; }
+      .topbar, .hero-content { width: calc(100% - 38px); }
+      .topbar { height: 76px; }
+      .brand-copy small { display: none; }
+      .top-links a:first-child { display: none; }
+      .hero-content { padding-top: 92px; }
+      h1 { font-size: 56px; }
+      .hero-description br { display: none; }
+      .stats { gap: 16px; justify-content: space-between; }
+      .stat { flex: 1; min-width: 0; padding: 0 0 0 15px; }
+      .stat strong { font-size: 36px; }
+      .stat span { font-size: 10px; }
+      .scroll-cue { display: none; }
+      .map-section { width: calc(100% - 32px); padding: 88px 0; }
+      .section-head, .gallery-head { align-items: flex-start; gap: 25px; }
+      .section-note { display: none; }
+      .dimension-switch { width: 100%; }
+      .dimension-switch button { flex: 1; padding: 12px 8px; font-size: 13px; }
+      .mind-map { padding: 18px; border-radius: 21px; }
+      .branch { grid-template-columns: 1fr; gap: 11px; }
+      .chips { gap: 7px; }
+      .chip { padding: 8px 11px; font-size: 11px; }
+      .gallery-section { padding: 86px 16px; }
+      .gallery-head { flex-direction: column; margin-bottom: 24px; }
+      .toolbar { align-items: stretch; flex-direction: column-reverse; }
+      .search-box { width: 100%; min-width: 0; }
+      .masonry { columns: 2 140px; column-gap: 10px; }
+      .material-card { margin-bottom: 10px; border-radius: 10px; }
+      .card-body { padding: 11px; }
+      .card-title { font-size: 12px; }
+      .card-meta { font-size: 9px; }
+      footer { text-align: center; flex-direction: column; }
+      .modal-backdrop { padding: 54px 12px 12px; }
+      .modal-panel {
+        height: calc(100vh - 66px);
+        max-height: none;
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(0, 1fr) auto;
+      }
+      .modal-image { min-height: 0; }
+      .modal-image img { max-height: calc(100vh - 340px); }
+      .modal-info { max-height: 290px; padding: 22px; }
+      .modal-info dl { margin: 18px 0; }
+      .modal-info dl div { padding: 9px 0; }
+      .modal-arrow { width: 38px; height: 48px; top: 35%; }
+      .modal-arrow.prev { left: 16px; }
+      .modal-arrow.next { right: 16px; }
+      .back-top { right: 15px; bottom: 15px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero" id="top">
+    <span class="green-glow" aria-hidden="true"></span>
+    <nav class="topbar" aria-label="页面导航">
+      <a class="brand" href="#top" aria-label="返回页面顶部">
+        <span class="brand-mark">领</span>
+        <span class="brand-copy">
+          <strong>领世研习所</strong>
+          <small>LINGSHI STUDY CENTER</small>
+        </span>
+      </a>
+      <span class="top-links">
+        <a href="#map">分类地图</a>
+        <a href="#gallery">浏览素材 ↘</a>
+      </span>
+    </nav>
+    <div class="hero-content">
+      <p class="eyebrow">服务运营物料库 · 2026</p>
+      <h1>让每一份素材，<br><em>都各归其位。</em></h1>
+      <p class="hero-description">
+        领世研习所服务运营物料分类总览。<br>
+        从业务归属与运营用途两个维度，快速定位、浏览与复用设计资产。
+      </p>
+      <div class="stats" aria-label="素材统计">
+        <div class="stat"><strong id="hero-total">99</strong><span>张运营素材</span></div>
+        <div class="stat"><strong>3</strong><span>条业务线</span></div>
+        <div class="stat"><strong>5</strong><span>种运营类型</span></div>
+      </div>
+    </div>
+    <a class="scroll-cue" href="#map">SCROLL TO EXPLORE</a>
+  </header>
+
+  <main>
+    <section class="map-section" id="map" aria-labelledby="map-title">
+      <div class="section-head">
+        <div class="section-title-wrap">
+          <span class="section-number">01</span>
+          <p class="section-kicker">MATERIAL MAP</p>
+          <h2 id="map-title">服务物料分类地图</h2>
+        </div>
+        <p class="section-note">切换分类维度，点击节点即可筛选并直达素材。<br>同一素材可跨业务线复用，数量随筛选实时更新。</p>
+      </div>
+
+      <div class="dimension-switch" role="tablist" aria-label="分类维度">
+        <button class="active" type="button" role="tab" aria-selected="true" data-dimension="business"><span>01</span>按业务线分类</button>
+        <button type="button" role="tab" aria-selected="false" data-dimension="type"><span>02</span>按运营类型分类</button>
+      </div>
+
+      <div class="mind-map" id="mind-map"></div>
+      <p class="map-footnote">归类说明：依据 XMind 业务架构与现有文件夹命名建立初版标签；通用素材可同时归入多条业务线，便于跨团队复用。</p>
+    </section>
+
+    <section class="gallery-section" id="gallery" aria-labelledby="gallery-title">
+      <div class="gallery-head">
+        <div class="section-title-wrap">
+          <span class="section-number light">02</span>
+          <p class="section-kicker">VISUAL ARCHIVE</p>
+          <h2 id="gallery-title">素材灵感库</h2>
+        </div>
+        <div class="filter-summary" aria-live="polite">
+          <span>当前展示</span>
+          <strong id="visible-count">99</strong>
+          <span>张素材</span>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="active-filters" id="active-filters"></div>
+        <input class="search-box" id="search-box" type="search" autocomplete="off" placeholder="搜索文件名、类型或业务线…">
+      </div>
+      <div class="masonry" id="masonry"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand"><span class="brand-mark">领</span><strong>领世研习所 · 服务运营物料库</strong></div>
+    <div class="footer-note">业务线 × 运营类型 · 双维素材归档</div>
+  </footer>
+
+  <button class="back-top" id="back-top" type="button" aria-label="返回顶部">↑</button>
+  <div id="modal-root"></div>
+
+  <script>
+    const rawPaths = [
+      "教学中台/学习活动/教学中台内部表彰/荣誉表彰.png",
+      "教学中台/学习活动/教学中台助理招聘/招聘.png",
+      "教学中台/学习活动/教学中台政策分享/容器 35.png",
+      "教学中台/教学中台招生宣传/3月春季课火热招生 (1).png",
+      "教学中台/教学中台招生宣传/福利海报 拷贝 2(1).png",
+      "教学中台/教学中台招生宣传/限时优惠.png",
+      "教学中台/课程介绍/教学中台产品介绍/寒假高一下化学@2x.png",
+      "教学中台/课程介绍/教学中台产品介绍/寒假高一下数学@2x.png",
+      "教学中台/课程介绍/教学中台产品介绍/寒假高一下物理@2x.png",
+      "教学中台/课程介绍/教学中台产品介绍/新高一产品介绍（总）.jpg",
+      "教学中台/课程介绍/教学中台产品介绍/新高一产品（好产品）.jpg",
+      "教学中台/课程介绍/教学中台教师宣传/新高三名师班@1x.png",
+      "教学中台/课程介绍/教学中台课程安排/2026中考压轴题特训营5(6).png",
+      "教学中台/课程介绍/教学中台课程安排/新高三单暑假-数学@1x.png",
+      "运营中台/分享讲座/升学途径经验分享暨自然科学兴趣选拔(老师)@1x.png",
+      "运营中台/志愿类讲座/志愿填报.png",
+      "运营中台/招生宣传/中台运营/0320尖子生海报2.png",
+      "运营中台/招生宣传/中台运营/0330喜报模板1.png",
+      "运营中台/招生宣传/中台运营/中考喜报.png",
+      "运营中台/招生宣传/中台运营/喜报.png",
+      "运营中台/招生宣传/中台运营/总榜.png",
+      "运营中台/招生宣传/中台运营/提分.png",
+      "运营中台/招生宣传/中台运营/提分喜报.png",
+      "运营中台/招生宣传/中台运营/直接录取.png",
+      "运营中台/招生宣传/中台运营/高分学员榜.png",
+      "运营中台/招生宣传/中台运营/高考喜报.png",
+      "运营中台/招生宣传/优惠活动/4.8暑假团报优惠（石明）@2x.png",
+      "运营中台/招生宣传/优惠活动/优惠活动.png",
+      "运营中台/招生宣传/优惠活动/优惠窗口期.png",
+      "运营中台/招生宣传/优惠活动/新高一优惠竖版海报 (1).png",
+      "运营中台/招生宣传/优惠活动/老带新海报.png",
+      "运营中台/招生宣传/优惠活动/限时优惠.png",
+      "运营中台/招生宣传/倒计时/中考倒计时.png",
+      "运营中台/招生宣传/倒计时/优惠倒计时.png",
+      "运营中台/招生宣传/倒计时/倒计时2@1x.png",
+      "运营中台/招生宣传/倒计时/倒计时3.png",
+      "运营中台/招生宣传/倒计时/倒计时海报2.jpg",
+      "运营中台/招生宣传/倒计时/倒计时海报（更新）@1x.png",
+      "运营中台/招生宣传/倒计时/团报优惠倒计时.png",
+      "运营中台/招生宣传/倒计时/开班倒计时2@1x.png",
+      "运营中台/招生宣传/倒计时/开课倒计时.png",
+      "运营中台/招生宣传/倒计时/新初一暑假钜惠倒计时.png",
+      "运营中台/招生宣传/倒计时/涨价倒计时.png",
+      "运营中台/招生宣传/倒计时/老生优惠截至倒计时.png",
+      "运营中台/招生宣传/开课通知/1. 年前开课海报（确认版）@1x.png",
+      "运营中台/招生宣传/开课通知/3. 年后开课海报@1x.png",
+      "运营中台/招生宣传/开课通知/4春季开班@1x.png",
+      "运营中台/招生宣传/开课通知/名师菁英班-开课时间海报-高一2@2x.png",
+      "运营中台/招生宣传/开课通知/开课通知海报.png",
+      "运营中台/招生宣传/教师宣传/新高一产品（好老师）.jpg",
+      "运营中台/招生宣传/教师宣传/新高三名师班.png",
+      "运营中台/招生宣传/满班通知/冲刺3000人次喜报.png",
+      "运营中台/招生宣传/满班通知/即将封班.png",
+      "运营中台/招生宣传/满班通知/名额抢占.png",
+      "运营中台/招生宣传/满班通知/封班通知.png",
+      "运营中台/招生宣传/满班通知/满班海报.png",
+      "运营中台/招生宣传/满班通知/满班通知海报.png",
+      "运营中台/招生宣传/满班通知/续班截至海报.png",
+      "运营中台/招生宣传/满班通知/高中封班通知.png",
+      "运营中台/招生宣传/续拉海报/2. 续班开启海报@1x.png",
+      "运营中台/招生宣传/续拉海报/寒假老学员专属.png",
+      "运营中台/招生宣传/续拉海报/新高一暑期先修班 报名开启.png",
+      "运营中台/招生宣传/续拉海报/暑秋窗口期.png",
+      "运营中台/招生宣传/续拉海报/秋季班报名优惠.png",
+      "运营中台/招生宣传/续拉海报/秋季续班窗口期.png",
+      "运营中台/招生宣传/续拉海报/续班开启海报.png",
+      "运营中台/招生宣传/自招喜报/二中喜报.jpg",
+      "运营中台/招生宣传/自招喜报/自招喜报.png",
+      "运营中台/招生宣传/赠品领取/书籍领取.png",
+      "运营中台/招生宣传/赠品领取/免费物料领取.png",
+      "运营中台/招生宣传/赠品领取/免费领.png",
+      "运营中台/招生宣传/赠品领取/免费领物料.png",
+      "运营中台/招生宣传/赠品领取/到店领取海报.png",
+      "运营中台/招生宣传/赠品领取/月考卷领取.png",
+      "运营中台/招生宣传/赠品领取/真题免费领.png",
+      "运营中台/招生宣传/赠品领取/试卷领取.png",
+      "运营中台/招生宣传/赠品领取/资料免费领取.png",
+      "运营中台/招生宣传/领书/1205开卷书领取海报(1).jpg",
+      "运营中台/政策类讲座/企业微信截图_20260716150819.png",
+      "运营中台/政策类讲座/企业微信截图_20260716150828.png",
+      "运营中台/政策类讲座/企业微信截图_20260716150837.png",
+      "运营中台/政策类讲座/企业微信截图_20260716150845.png",
+      "运营中台/知识类讲座/冲刺名校.png",
+      "运营中台/知识类讲座/能力测评.png",
+      "运营中台/知识类讲座/重难点串讲.png",
+      "运营中台/节日营销/618/企业微信截图_20260716150412.png",
+      "运营中台/节日营销/五一/五一活动.png",
+      "运营中台/节日营销/元旦/元旦发布会.png",
+      "运营中台/节日营销/元旦/元旦试听课邀约海报.jpg",
+      "运营中台/节日营销/元旦/新高一产品发布会邀请函（确定）.jpg",
+      "运营中台/节日营销/十一/短期班.png",
+      "运营中台/节日营销/双十一/双十一优惠.png",
+      "运营中台/节日营销/双十一/双十一优惠海报.png",
+      "运营中台/节日营销/双十一/双十一活动.png",
+      "运营中台/节日营销/双十一/双十一老带新.png",
+      "运营中台/规划类讲座/升学讲座.png",
+      "运营中台/规划类讲座/自招讲座.png",
+      "运营中台/进校类讲座/9. 一中滨河讲座预约海报.png",
+      "运营中台/进校类讲座/邀请函.png"
+    ];
+
+    const businessConfig = [
+      {
+        id: "线下托管",
+        title: "线下托管",
+        note: "业务运营 / 中台运营 / 教学部",
+        color: "#c75b2b",
+        soft: "#fff0e8",
+        chips: [
+          { label: "运营中台", source: "运营中台" },
+          { label: "教学中台", source: "教学中台" }
+        ]
+      },
+      {
+        id: "高中班课",
+        title: "高中班课",
+        note: "店面业务 / 网课业务 / 中台运营 / 教学部",
+        color: "#2d72b8",
+        soft: "#edf5ff",
+        chips: [
+          { label: "运营中台", source: "运营中台" },
+          { label: "教学中台", source: "教学中台" }
+        ]
+      },
+      {
+        id: "1对1托管",
+        title: "1 对 1 托管",
+        note: "业务运营 / 中台运营 / 教学部",
+        color: "#6b5ec5",
+        soft: "#f0efff",
+        chips: [
+          { label: "运营中台", source: "运营中台" },
+          { label: "教学中台", source: "教学中台" }
+        ]
+      }
+    ];
+
+    const typeConfig = [
+      {
+        id: "营销获客类",
+        title: "营销获客类",
+        note: "拉新引流 · 线索沉淀",
+        color: "#c75b2b",
+        soft: "#fff0e8",
+        chips: ["资料赠送", "主题讲座", "招生引流"]
+      },
+      {
+        id: "活动大促类",
+        title: "活动大促类",
+        note: "转化节点 · 稀缺促单",
+        color: "#d78c24",
+        soft: "#fff7e4",
+        chips: ["节日节点", "优惠活动", "倒计时", "续报转化", "名额稀缺"]
+      },
+      {
+        id: "课程产品类",
+        title: "课程产品类",
+        note: "核心售卖 · 产品说明",
+        color: "#2d72b8",
+        soft: "#edf5ff",
+        chips: ["产品介绍", "课程安排", "开课通知", "课程招生"]
+      },
+      {
+        id: "教学服务类",
+        title: "教学服务类",
+        note: "信任背书 · 成果呈现",
+        color: "#26825e",
+        soft: "#eaf8f1",
+        chips: ["成果喜报", "学习诊断", "政策服务", "教学内容"]
+      },
+      {
+        id: "教师团队文化类",
+        title: "教师团队文化类",
+        note: "师资形象 · 团队温度",
+        color: "#7659a6",
+        soft: "#f5effc",
+        chips: ["教师宣传", "团队荣誉", "人才招聘"]
+      }
+    ];
+
+    function includesAny(text, keywords) {
+      return keywords.some(keyword => text.includes(keyword));
+    }
+
+    function inferBusiness(path) {
+      const lines = [];
+      const localOnly = ["进校", "一中", "二中", "到店", "初一", "中考", "自招", "志愿"];
+      const highSchool = ["高一", "高二", "高三", "高中", "高考", "名校", "暑假", "寒假", "数学", "物理", "化学", "升学", "冲刺"];
+
+      if (includesAny(path, localOnly)) lines.push("线下托管");
+      if (includesAny(path, highSchool)) lines.push("高中班课", "1对1托管");
+      if (!lines.length) lines.push("线下托管", "高中班课", "1对1托管");
+      return [...new Set(lines)];
+    }
+
+    function inferType(path) {
+      if (includesAny(path, ["教师宣传", "内部表彰", "助理招聘", "好老师", "荣誉", "招聘", "名师班"])) {
+        return { type: "教师团队文化类", subtype: path.includes("招聘") ? "人才招聘" : path.includes("表彰") || path.includes("荣誉") ? "团队荣誉" : "教师宣传" };
+      }
+      if (includesAny(path, ["中台运营", "自招喜报", "政策分享", "政策类讲座", "能力测评", "重难点串讲", "喜报", "提分", "录取", "高分", "总榜"])) {
+        const subtype = includesAny(path, ["喜报", "提分", "录取", "高分", "总榜"]) ? "成果喜报"
+          : path.includes("政策") ? "政策服务"
+          : path.includes("能力测评") ? "学习诊断"
+          : "教学内容";
+        return { type: "教学服务类", subtype };
+      }
+      if (includesAny(path, ["节日营销", "优惠活动", "优惠", "福利", "倒计时", "满班通知", "续拉海报"])) {
+        const subtype = path.includes("节日营销") ? "节日节点"
+          : includesAny(path, ["优惠活动", "优惠", "福利"]) ? "优惠活动"
+          : path.includes("倒计时") ? "倒计时"
+          : path.includes("续拉海报") ? "续报转化"
+          : "名额稀缺";
+        return { type: "活动大促类", subtype };
+      }
+      if (includesAny(path, ["课程介绍", "产品介绍", "课程安排", "开课通知", "开班", "特训营", "教学中台招生宣传"])) {
+        const subtype = path.includes("产品") ? "产品介绍"
+          : path.includes("课程安排") ? "课程安排"
+          : includesAny(path, ["开课", "开班"]) ? "开课通知"
+          : "课程招生";
+        return { type: "课程产品类", subtype };
+      }
+      if (includesAny(path, ["赠品领取", "领书"])) return { type: "营销获客类", subtype: "资料赠送" };
+      if (path.includes("讲座")) return { type: "营销获客类", subtype: "主题讲座" };
+      return { type: "营销获客类", subtype: "招生引流" };
+    }
+
+    function cleanTitle(path) {
+      return decodeURIComponent(path.split("/").pop())
+        .replace(/\.(png|jpe?g|webp)$/i, "")
+        .replace(/^\d+[\.\s、_-]*/, "")
+        .replace(/@\d+x$/i, "")
+        .replace(/\s*\(\d+\)$/g, "")
+        .trim();
+    }
+
+    const materials = rawPaths.map((path, index) => {
+      const typeInfo = inferType(path);
+      return {
+        id: index,
+        path,
+        filename: path.split("/").pop(),
+        title: cleanTitle(path),
+        source: path.split("/")[0],
+        sourcePath: path.split("/").slice(0, -1).join(" › "),
+        business: inferBusiness(path),
+        type: typeInfo.type,
+        subtype: typeInfo.subtype
+      };
+    });
+
+    const state = {
+      dimension: "business",
+      business: "",
+      type: "",
+      subtype: "",
+      source: "",
+      search: "",
+      visible: [...materials],
+      modalIndex: -1
+    };
+
+    const mindMap = document.getElementById("mind-map");
+    const masonry = document.getElementById("masonry");
+    const visibleCount = document.getElementById("visible-count");
+    const activeFilters = document.getElementById("active-filters");
+    const searchBox = document.getElementById("search-box");
+    const modalRoot = document.getElementById("modal-root");
+
+    document.getElementById("hero-total").textContent = materials.length;
+
+    function countBy(key, value) {
+      if (key === "business") return materials.filter(item => item.business.includes(value)).length;
+      return materials.filter(item => item[key] === value).length;
+    }
+
+    function renderMap() {
+      const isBusiness = state.dimension === "business";
+      const groups = isBusiness ? businessConfig : typeConfig;
+      const activeValue = isBusiness ? state.business : state.type;
+      const rootSubtitle = isBusiness ? "张 · 3 条业务线" : "张 · 5 种运营类型";
+
+      mindMap.innerHTML = `
+        <button class="root-node" type="button" data-reset-all aria-label="清除筛选并显示全部素材">
+          <span class="root-label">领世研习所物料库</span>
+          <strong>${materials.length}</strong><small>${rootSubtitle}</small>
+          <span class="progress"><b></b></span>
+        </button>
+        <div class="branch-list">
+          ${groups.map(group => {
+            const count = countBy(isBusiness ? "business" : "type", group.id);
+            const chips = isBusiness
+              ? group.chips.map(chip => {
+                  const chipCount = materials.filter(item => item.business.includes(group.id) && item.source === chip.source).length;
+                  const active = state.business === group.id && state.source === chip.source;
+                  return `<button class="chip${active ? " active" : ""}" type="button" data-group="${group.id}" data-source="${chip.source}">${chip.label}<strong>${chipCount}</strong></button>`;
+                }).join("")
+              : group.chips.map(chip => {
+                  const chipCount = materials.filter(item => item.type === group.id && item.subtype === chip).length;
+                  const active = state.type === group.id && state.subtype === chip;
+                  return `<button class="chip${active ? " active" : ""}" type="button" data-group="${group.id}" data-subtype="${chip}">${chip}<strong>${chipCount}</strong></button>`;
+                }).join("");
+            return `
+              <article class="branch${activeValue === group.id ? " is-active" : ""}" style="--branch:${group.color};--soft:${group.soft}">
+                <button class="group-node" type="button" data-group="${group.id}">
+                  <span class="group-top">
+                    <span>${group.title}</span>
+                    <span class="group-count"><strong>${count}</strong><small>张</small></span>
+                  </span>
+                  <span class="group-note">${group.note}</span>
+                </button>
+                <div class="chips" aria-label="${group.title}子分类">${chips}</div>
+              </article>
+            `;
+          }).join("")}
+        </div>
+      `;
+
+      mindMap.querySelector("[data-reset-all]").addEventListener("click", clearAll);
+      mindMap.querySelectorAll("[data-group]").forEach(button => {
+        button.addEventListener("click", event => {
+          event.stopPropagation();
+          const group = button.dataset.group;
+          if (isBusiness) {
+            if (button.dataset.source) {
+              const sameSelection = state.business === group && state.source === button.dataset.source;
+              state.business = group;
+              state.source = sameSelection ? "" : button.dataset.source;
+            } else {
+              state.business = state.business === group ? "" : group;
+              state.source = "";
+            }
+          } else {
+            if (button.dataset.subtype) {
+              const sameSelection = state.type === group && state.subtype === button.dataset.subtype;
+              state.type = group;
+              state.subtype = sameSelection ? "" : button.dataset.subtype;
+            } else {
+              state.type = state.type === group ? "" : group;
+              state.subtype = "";
+            }
+          }
+          applyFilters(true);
+        });
+      });
+    }
+
+    function getFilteredMaterials() {
+      const query = state.search.trim().toLowerCase();
+      return materials.filter(item => {
+        if (state.business && !item.business.includes(state.business)) return false;
+        if (state.type && item.type !== state.type) return false;
+        if (state.subtype && item.subtype !== state.subtype) return false;
+        if (state.source && item.source !== state.source) return false;
+        if (query) {
+          const haystack = [item.title, item.filename, item.type, item.subtype, item.source, ...item.business].join(" ").toLowerCase();
+          if (!haystack.includes(query)) return false;
+        }
+        return true;
+      });
+    }
+
+    function typeColor(type) {
+      return typeConfig.find(item => item.id === type)?.color || "#c75b2b";
+    }
+
+    function renderGallery() {
+      state.visible = getFilteredMaterials();
+      visibleCount.textContent = state.visible.length;
+
+      if (!state.visible.length) {
+        masonry.className = "";
+        masonry.innerHTML = `<div class="empty-state"><strong>暂未找到匹配素材</strong>试试清除部分筛选，或更换搜索关键词。</div>`;
+        return;
+      }
+
+      masonry.className = "masonry";
+      masonry.innerHTML = state.visible.map((item, index) => `
+        <button class="material-card" type="button" data-id="${item.id}" style="--delay:${Math.min(index, 18) * 22}ms" aria-label="查看${item.title}详情">
+          <span class="image-wrap">
+            <img src="${encodeURI(item.path)}" alt="${item.title}" loading="${index < 10 ? "eager" : "lazy"}">
+            <span class="view-cue"><span>查看详情</span><b>↗</b></span>
+          </span>
+          <span class="card-body">
+            <span class="card-title">${item.title}</span>
+            <span class="card-meta" style="--dot:${typeColor(item.type)}"><i></i>${item.type} · ${item.source}</span>
+          </span>
+        </button>
+      `).join("");
+
+      masonry.querySelectorAll(".material-card").forEach(card => {
+        card.addEventListener("click", () => openModal(Number(card.dataset.id)));
+      });
+    }
+
+    function renderActiveFilters() {
+      const filters = [
+        ["business", state.business, "业务线"],
+        ["type", state.type, "类型"],
+        ["subtype", state.subtype, "子类"],
+        ["source", state.source, "来源"]
+      ].filter(([, value]) => value);
+
+      if (!filters.length && !state.search) {
+        activeFilters.innerHTML = "<span>全部素材 · 点击上方分类节点开始筛选</span>";
+        return;
+      }
+
+      activeFilters.innerHTML = `
+        <span>已筛选</span>
+        ${filters.map(([key, value, label]) => `<button class="filter-pill" type="button" data-clear="${key}">${label}：${value}</button>`).join("")}
+        ${state.search ? `<button class="filter-pill" type="button" data-clear="search">搜索：${state.search}</button>` : ""}
+        <button class="clear-button" type="button" data-reset>清除全部</button>
+      `;
+      activeFilters.querySelectorAll("[data-clear]").forEach(button => {
+        button.addEventListener("click", () => {
+          const key = button.dataset.clear;
+          state[key] = "";
+          if (key === "business") state.source = "";
+          if (key === "type") state.subtype = "";
+          if (key === "search") searchBox.value = "";
+          applyFilters(false);
+        });
+      });
+      activeFilters.querySelector("[data-reset]").addEventListener("click", clearAll);
+    }
+
+    function applyFilters(scrollToGallery) {
+      renderMap();
+      renderActiveFilters();
+      renderGallery();
+      if (scrollToGallery) document.getElementById("gallery").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function clearAll() {
+      state.business = "";
+      state.type = "";
+      state.subtype = "";
+      state.source = "";
+      state.search = "";
+      searchBox.value = "";
+      applyFilters(false);
+    }
+
+    document.querySelectorAll(".dimension-switch button").forEach(button => {
+      button.addEventListener("click", () => {
+        state.dimension = button.dataset.dimension;
+        document.querySelectorAll(".dimension-switch button").forEach(item => {
+          const active = item === button;
+          item.classList.toggle("active", active);
+          item.setAttribute("aria-selected", String(active));
+        });
+        renderMap();
+      });
+    });
+
+    let searchTimer;
+    searchBox.addEventListener("input", () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => {
+        state.search = searchBox.value;
+        applyFilters(false);
+      }, 160);
+    });
+
+    function openModal(materialId) {
+      state.modalIndex = state.visible.findIndex(item => item.id === materialId);
+      if (state.modalIndex < 0) return;
+      renderModal();
+      document.body.classList.add("modal-open");
+    }
+
+    function renderModal() {
+      const item = state.visible[state.modalIndex];
+      if (!item) return closeModal();
+      modalRoot.innerHTML = `
+        <div class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+          <button class="modal-close" type="button" aria-label="关闭详情">×</button>
+          ${state.visible.length > 1 ? `<button class="modal-arrow prev" type="button" aria-label="上一张">‹</button>` : ""}
+          <div class="modal-panel">
+            <div class="modal-image"><img src="${encodeURI(item.path)}" alt="${item.title}"></div>
+            <aside class="modal-info">
+              <p class="modal-kicker">MATERIAL DETAIL <span class="modal-index">${state.modalIndex + 1} / ${state.visible.length}</span></p>
+              <h3 id="modal-title">${item.title}</h3>
+              <p class="filename">${item.filename}</p>
+              <dl>
+                <div><dt>运营类型</dt><dd>${item.type}<br>${item.subtype}</dd></div>
+                <div><dt>适用业务</dt><dd>${item.business.join(" / ")}</dd></div>
+                <div><dt>素材来源</dt><dd>${item.sourcePath}</dd></div>
+              </dl>
+              <a class="download-button" href="${encodeURI(item.path)}" download="${item.filename}"><span>下载原图</span><span>↓</span></a>
+              <small class="modal-tip">支持键盘 ← → 切换，Esc 关闭</small>
+            </aside>
+          </div>
+          ${state.visible.length > 1 ? `<button class="modal-arrow next" type="button" aria-label="下一张">›</button>` : ""}
+        </div>
+      `;
+
+      modalRoot.querySelector(".modal-close").addEventListener("click", closeModal);
+      modalRoot.querySelector(".modal-backdrop").addEventListener("click", event => {
+        if (event.target.classList.contains("modal-backdrop")) closeModal();
+      });
+      modalRoot.querySelector(".prev")?.addEventListener("click", () => moveModal(-1));
+      modalRoot.querySelector(".next")?.addEventListener("click", () => moveModal(1));
+      modalRoot.querySelector(".modal-close").focus();
+    }
+
+    function moveModal(direction) {
+      state.modalIndex = (state.modalIndex + direction + state.visible.length) % state.visible.length;
+      renderModal();
+    }
+
+    function closeModal() {
+      modalRoot.innerHTML = "";
+      state.modalIndex = -1;
+      document.body.classList.remove("modal-open");
+    }
+
+    document.addEventListener("keydown", event => {
+      if (state.modalIndex < 0) return;
+      if (event.key === "Escape") closeModal();
+      if (event.key === "ArrowLeft") moveModal(-1);
+      if (event.key === "ArrowRight") moveModal(1);
+    });
+
+    const backTop = document.getElementById("back-top");
+    window.addEventListener("scroll", () => backTop.classList.toggle("show", window.scrollY > 720), { passive: true });
+    backTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+    applyFilters(false);
+  </script>
+</body>
+</html>
